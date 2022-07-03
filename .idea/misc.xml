@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.253125" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.21739130434782608" />
+        <entry key="app/src/main/res/layout/fragment_temperature.xml" value="0.42857142857142855" />
+        <entry key="app/src/main/res/layout/fragment_weight_converter.xml" value="0.3596330275229358" />
+        <entry key="app/src/main/res/layout/item_converter.xml" value="0.23278985507246377" />
+        <entry key="app/src/main/res/layout/list_item_category.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/unit_converter_item.xml" value="0.31147003173828125" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.1" />
+      </ProjectState>
+    </option>
+  </component>
+</project>

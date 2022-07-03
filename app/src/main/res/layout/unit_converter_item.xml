@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/regular_margin">
+
+    <TextView
+        android:id="@+id/item_unit_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed-light"
+        android:gravity="start"
+        android:text="test1"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/regular_font_size"
+        app:layout_constraintEnd_toStartOf="@+id/item_result"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/item_result"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="end"
+        android:text="test2"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/regular_font_size"
+        app:layout_constraintEnd_toStartOf="@+id/item_pow"
+        app:layout_constraintStart_toEndOf="@+id/item_unit_title"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/item_pow"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="top|end"
+        android:text="2"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/small_font_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/item_result"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
