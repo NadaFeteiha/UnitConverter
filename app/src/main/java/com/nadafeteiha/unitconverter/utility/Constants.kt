@@ -7,5 +7,8 @@ object Constants {
     const val LENGTH_CONVERTER = 3
     const val AREA_CONVERTER = 4
     const val FREQUENCY = 5
+    const val SPEED = 6
+    const val FUEL = 7
+    const val DIGITAL_STORAGE = 8
 
 }

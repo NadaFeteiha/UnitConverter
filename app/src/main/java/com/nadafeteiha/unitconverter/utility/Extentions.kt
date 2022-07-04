@@ -1,6 +1,11 @@
 package com.nadafeteiha.unitconverter.utility
 
+import android.app.Activity
+import android.content.Context
 import android.icu.text.DecimalFormat
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import androidx.fragment.app.Fragment
 
 
 fun Double.roundTwoDecimals():String{
@@ -8,13 +13,11 @@ fun Double.roundTwoDecimals():String{
     return df.format(this)
 }
 
-fun String.roundTwoDecimals():String{
-    val df = DecimalFormat("#.##")
-    return df.format(this)
+fun Fragment.hideKeyboard() {
+    view?.let { activity?.hideKeyboard(it) }
 }
 
-
-fun String.roundUpToSixDecimals():String{
-    val df = DecimalFormat("#.######")
-    return df.format(this)
+fun Context.hideKeyboard(view: View) {
+    val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 }

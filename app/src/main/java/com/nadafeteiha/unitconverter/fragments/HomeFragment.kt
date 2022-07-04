@@ -1,4 +1,4 @@
-package com.nadafeteiha.unitconverter.fragmentconverter
+package com.nadafeteiha.unitconverter.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.nadafeteiha.unitconverter.category.Categories
 import com.nadafeteiha.unitconverter.category.CategoryAdapter
 import com.nadafeteiha.unitconverter.databinding.FragmentHomeBinding
-import com.nadafeteiha.unitconverter.utility.Constants
 
 
 class HomeFragment : Fragment() {

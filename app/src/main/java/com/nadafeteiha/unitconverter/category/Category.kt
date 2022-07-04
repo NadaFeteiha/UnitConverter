@@ -20,6 +20,9 @@ object Categories{
             field!!.add(Category(Constants.LENGTH_CONVERTER,R.drawable.ic_length,R.string.length))
             field!!.add(Category(Constants.AREA_CONVERTER,R.drawable.ic_area,R.string.area))
             field!!.add(Category(Constants.FREQUENCY,R.drawable.ic_freqancy,R.string.frequency))
+            field!!.add(Category(Constants.SPEED,R.drawable.ic_speed,R.string.speed))
+            field!!.add(Category(Constants.FUEL,R.drawable.ic_fuel,R.string.fuel))
+            field!!.add(Category(Constants.DIGITAL_STORAGE,R.drawable.ic_bdigital,R.string.digital_storage))
 
             return field
         }
