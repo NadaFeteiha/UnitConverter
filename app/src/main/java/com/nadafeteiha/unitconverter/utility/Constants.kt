@@ -10,5 +10,6 @@ object Constants {
     const val SPEED = 6
     const val FUEL = 7
     const val DIGITAL_STORAGE = 8
+    const val ENERGY = 9
 
 }

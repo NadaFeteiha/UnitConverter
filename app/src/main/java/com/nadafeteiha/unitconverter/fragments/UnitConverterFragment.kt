@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.nadafeteiha.unitconverter.MainActivity
 import com.nadafeteiha.unitconverter.R
 import com.nadafeteiha.unitconverter.databinding.FragmentTemperatureBinding
 import com.nadafeteiha.unitconverter.model.*
@@ -19,6 +20,7 @@ import com.nadafeteiha.unitconverter.unititem.ConverterAdapter
 import com.nadafeteiha.unitconverter.unititem.UnitItem
 import com.nadafeteiha.unitconverter.utility.Constants
 import com.nadafeteiha.unitconverter.utility.hideKeyboard
+import com.nadafeteiha.unitconverter.utility.roundDecimals
 
 class UnitConverterFragment : Fragment() {
     private lateinit var binding: FragmentTemperatureBinding
@@ -35,6 +37,10 @@ class UnitConverterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentTemperatureBinding.inflate(inflater, container, false)
+        (activity as MainActivity).supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+        }
         val categoryName = UnitConverterFragmentArgs.fromBundle(requireArguments()).categoryName
         setData(categoryName)
         setAdapterUnits()
@@ -60,62 +66,82 @@ class UnitConverterFragment : Fragment() {
     }
 
     private fun setData(category: Int) {
-
-
+        var title = ""
         when (category) {
             Constants.TEMP_CONVERTER -> {
                 unitConverter = TempConverter()
-                binding.tfAmount.hint = resources.getString(R.string.temperature)
+                title = resources.getString(R.string.temperature)
             }
             Constants.LENGTH_CONVERTER -> {
                 unitConverter = LengthConverter()
-                binding.tfAmount.hint = resources.getString(R.string.length)
+                title = resources.getString(R.string.length)
             }
             Constants.AREA_CONVERTER -> {
                 unitConverter = AreaConverter()
-                binding.tfAmount.hint = resources.getString(R.string.area)
+                title = resources.getString(R.string.area)
             }
             Constants.TIME_CONVERTER -> {
                 unitConverter = TimeConverter()
-                binding.tfAmount.hint = resources.getString(R.string.time)
+                title = resources.getString(R.string.time)
             }
             Constants.WEIGHT_CONVERTER -> {
                 unitConverter = MassConverter()
-                binding.tfAmount.hint = resources.getString(R.string.weight)
+                title = resources.getString(R.string.weight)
             }
             Constants.FREQUENCY -> {
                 unitConverter = FrequencyConverter()
-                binding.tfAmount.hint = resources.getString(R.string.frequency)
+                title = resources.getString(R.string.frequency)
             }
             Constants.SPEED -> {
                 unitConverter = SpeedConverter()
-                binding.tfAmount.hint = resources.getString(R.string.speed)
+                title = resources.getString(R.string.speed)
             }
             Constants.FUEL -> {
                 unitConverter = FuelConverter()
-                binding.tfAmount.hint = resources.getString(R.string.fuel)
+                title = resources.getString(R.string.fuel)
             }
             Constants.DIGITAL_STORAGE -> {
                 unitConverter = DigitalStorageConverter()
-                binding.tfAmount.hint = resources.getString(R.string.digital_storage)
+                title = resources.getString(R.string.digital_storage)
+            }
+            Constants.ENERGY -> {
+                unitConverter = EnergyConverter()
+                title = resources.getString(R.string.energy)
             }
         }
 
-        if (category== Constants.TEMP_CONVERTER){
+        (activity as MainActivity).supportActionBar?.title = title
+        binding.tfAmount.hint = title
+
+        if (category == Constants.TEMP_CONVERTER) {
             binding.amount.inputType =
                 InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL or InputType.TYPE_NUMBER_FLAG_SIGNED
-        }else{
+        } else {
             binding.amount.inputType =
                 InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
         }
     }
 
     private fun setAdapterUnits() {
-        val adapter = ArrayAdapter(requireContext(),
-            android.R.layout.simple_dropdown_item_1line,
-            items.map { it.key })
-        binding.from.setAdapter(adapter)
-        binding.to.setAdapter(adapter)
+        if (selectedFromUnit.isNotBlank()){
+            binding.to.setAdapter(ArrayAdapter(requireContext(),
+                android.R.layout.simple_dropdown_item_1line,
+                items.map { it.key}.filterNot { it == selectedFromUnit }))
+        }else{
+            binding.to.setAdapter(ArrayAdapter(requireContext(),
+                android.R.layout.simple_dropdown_item_1line,
+                items.map { it.key}))
+        }
+
+        if (selectedToUnit.isNotBlank()){
+            binding.from.setAdapter(ArrayAdapter(requireContext(),
+                android.R.layout.simple_dropdown_item_1line,
+                items.map { it.key}.filterNot { it == selectedToUnit }))
+        }else{
+            binding.from.setAdapter(ArrayAdapter(requireContext(),
+                android.R.layout.simple_dropdown_item_1line,
+                items.map { it.key}))
+        }
     }
 
     private fun setListeners() {
@@ -124,8 +150,8 @@ class UnitConverterFragment : Fragment() {
         }
 
         binding.btnSwitch.setOnClickListener {
-            if (!selectedFromUnit.isNullOrEmpty()
-                && !selectedToUnit.isNullOrEmpty()
+            if (selectedFromUnit.isNotEmpty()
+                && selectedToUnit.isNotEmpty()
             ) {
                 val temp = selectedFromUnit
                 selectedFromUnit = selectedToUnit
@@ -166,11 +192,13 @@ class UnitConverterFragment : Fragment() {
 
         binding.from.setOnItemClickListener { parent, _, position, _ ->
             selectedFromUnit = parent.getItemAtPosition(position) as String
+            setAdapterUnits()
             calculate()
         }
 
         binding.to.setOnItemClickListener { parent, _, position, _ ->
             selectedToUnit = parent.getItemAtPosition(position) as String
+            setAdapterUnits()
             if (selectedToUnit.contains("Square", true)) {
                 binding.power.text = "2"
             } else {
@@ -189,9 +217,9 @@ class UnitConverterFragment : Fragment() {
                 binding.result.text = "$amount"
             } else
                 binding.result.text =
-                    unitConverter.converter(amount, selectedFromUnit, selectedToUnit)
+                    unitConverter.converter(amount, selectedFromUnit, selectedToUnit).roundDecimals()
         } else {
-            binding.result.text = "0.0"
+            binding.result.text = ""
         }
 
         if (amount != 0.0 && selectedFromUnit.isNotBlank()) {

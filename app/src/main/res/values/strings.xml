@@ -11,6 +11,7 @@
     <string name="speed">Speed</string>
     <string name="fuel">Fuel</string>
     <string name="digital_storage">Digital Storage</string>
+    <string name="energy">Energy</string>
 
     <string name="tv_result">Result =</string>
     <string name="btn_switch">Switch unit conveter</string>

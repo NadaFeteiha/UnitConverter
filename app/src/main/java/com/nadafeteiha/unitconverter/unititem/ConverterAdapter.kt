@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nadafeteiha.unitconverter.databinding.UnitConverterItemBinding
+import com.nadafeteiha.unitconverter.utility.roundDecimals
 
 class ConverterAdapter(private var unitList: List<UnitItem>) :
     RecyclerView.Adapter<ConverterAdapter.ConverterViewHolder>() {
@@ -24,7 +25,7 @@ class ConverterAdapter(private var unitList: List<UnitItem>) :
 
         fun setData(item: UnitItem) {
             binding.itemUnitTitle.text = item.title
-            binding.itemResult.text = item.result
+            binding.itemResult.text = item.result.roundDecimals()
 
             if (item.title.contains("square", true))
                 binding.itemPow.text = "2"

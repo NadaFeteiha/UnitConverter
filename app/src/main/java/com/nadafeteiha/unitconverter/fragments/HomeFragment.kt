@@ -1,12 +1,14 @@
 package com.nadafeteiha.unitconverter.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.nadafeteiha.unitconverter.MainActivity
+import com.nadafeteiha.unitconverter.R
 import com.nadafeteiha.unitconverter.category.Categories
 import com.nadafeteiha.unitconverter.category.CategoryAdapter
 import com.nadafeteiha.unitconverter.databinding.FragmentHomeBinding
@@ -22,6 +24,12 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        (activity as MainActivity).supportActionBar?.apply {
+            title = resources.getString(R.string.app_name)
+            setDisplayHomeAsUpEnabled(false)
+            setDisplayShowHomeEnabled(false)
+        }
         return binding.root
     }
 
@@ -44,4 +52,5 @@ class HomeFragment : Fragment() {
             HomeFragmentDirections.actionHomeFragmentToTemperatureFragment2(categoryID)
         )
     }
+
 }
